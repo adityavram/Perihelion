@@ -97,14 +97,26 @@ class SpectralFactoring:
             raise ValueError(f"Unknown extractor: {extractor}")
         self._trained = False
 
-    def train(self, dataset=None, n_train=2000, seed_offset=0):
+    def train(self, dataset=None, n_train=2000, seed_offset=0,
+              multi_size_datasets=None):
         """Train the feature extractor and AR posterior.
 
         Args:
-            dataset: optional list of (N, p, q) tuples. If None, generates one.
+            dataset: optional list of (N, p, q) tuples at the target bit size.
+                If None, generates one.
             n_train: number of training samples (if dataset is None).
             seed_offset: seed offset for generation.
+            multi_size_datasets: optional list of (bits, list_of_(N,p,q))
+                tuples for multi-size training (D169). When provided, the
+                posterior is trained on a mix of bit sizes, which improves
+                generalization (d169: d=2.94 vs 3.12 at 64-bit). The
+                feature extractor is fit on the target-size dataset; the
+                multi-size features are standardized per-size before
+                combining.
         """
+        if multi_size_datasets is not None:
+            return self._train_multi_size(multi_size_datasets)
+
         if dataset is None:
             dataset = generate_dataset(self.bits, n_train, seed_offset=seed_offset)
 
@@ -115,6 +127,40 @@ class SpectralFactoring:
         p_bits = np.array([_int_to_bits(p, self.half) for p in p_list],
                           dtype=np.float64)
         self.posterior.train(F, p_bits)
+        self._trained = True
+
+    def _train_multi_size(self, multi_size_datasets):
+        """Train on a mix of bit sizes (D169 transfer learning).
+
+        Each size's features are standardized independently (z-score per
+        size), then concatenated. The AR posterior learns size-invariant
+        patterns. D169 showed this improves d at 64-bit from 3.12 to 2.94.
+
+        Args:
+            multi_size_datasets: list of (bits, dataset) where dataset is
+                a list of (N, p, q) tuples. The target size must be included.
+        """
+        all_F = []
+        all_p_bits = []
+        for bits_i, dataset_i in multi_size_datasets:
+            half_i = bits_i // 2
+            N_list = [d[0] for d in dataset_i]
+            p_list = [d[1] for d in dataset_i]
+            fe_i = FeatureExtractor(bits_i)
+            F_i = fe_i.fit_transform(N_list)
+            all_F.append(F_i)
+            pb_i = np.array([_int_to_bits(p, half_i) for p in p_list],
+                            dtype=np.float64)
+            if half_i < self.half:
+                pad = np.full((len(pb_i), self.half - half_i), 0.5)
+                pb_i = np.hstack([pb_i, pad])
+            elif half_i > self.half:
+                pb_i = pb_i[:, :self.half]
+            all_p_bits.append(pb_i)
+        F_combined = np.vstack(all_F)
+        pb_combined = np.vstack(all_p_bits)
+        self.fe.fit_transform([d[0] for d in multi_size_datasets[0][1]])
+        self.posterior.train(F_combined, pb_combined)
         self._trained = True
 
     def factor(self, N):

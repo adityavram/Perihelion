@@ -231,3 +231,21 @@ class TestComponents:
         assert isprime(p)
         assert isprime(q)
         assert p != q
+
+    @pytest.mark.small
+    def test_multi_size_training(self):
+        """Multi-size training (D169) should work and not crash."""
+        sf = SpectralFactoring(bits=32, k_samples=10, d_hamming=2,
+                               extractor="brute")
+        multi = [
+            (32, generate_dataset(32, 50, seed_offset=1)),
+            (48, generate_dataset(48, 30, seed_offset=2)),
+        ]
+        sf.train(multi_size_datasets=multi)
+        assert sf._trained
+        N, p, q = generate_dataset(32, 1, seed_offset=99)[0]
+        result = sf.factor(N)
+        # Should produce a valid result or None (not crash)
+        if result is not None:
+            p_found, q_found = result
+            assert p_found * q_found == N
