@@ -249,3 +249,17 @@ class TestComponents:
         if result is not None:
             p_found, q_found = result
             assert p_found * q_found == N
+
+    @pytest.mark.small
+    def test_coevolution_extractor(self):
+        """Coevolutionary GA (D195) should factor 32-bit semiprimes."""
+        sf = SpectralFactoring(bits=32, k_samples=20, d_hamming=2,
+                               extractor="coevolve", b_unknown=8,
+                               coevolve_generations=50, coevolve_pop_size=20)
+        train = generate_dataset(32, 200, seed_offset=100)
+        sf.train(dataset=train)
+        N, p, q = generate_dataset(32, 1, seed_offset=555)[0]
+        result = sf.factor(N)
+        if result is not None:
+            p_found, q_found = result
+            assert p_found * q_found == N

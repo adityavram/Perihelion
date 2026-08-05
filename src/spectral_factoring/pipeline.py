@@ -24,6 +24,7 @@ from .extraction import (
     enumerate_high_ball,
     high_ball_size,
 )
+from .coevolution import CoevolutionaryGA
 
 
 def generate_semiprime(bits, seed):
@@ -65,13 +66,18 @@ class SpectralFactoring:
         d_hamming: Hamming ball radius for the high-bit search.
         b_unknown: number of unknown low bits to pass to the extractor.
             Default: bits//4 - 1 (just within the Coppersmith bound with slack).
-        extractor: "lattice" (Coppersmith) or "brute" (GCD).
+        extractor: "lattice" (Coppersmith), "brute" (GCD), or "coevolve".
         m, t: Coppersmith lattice parameters (only for "lattice" extractor).
+        coevolve_generations: number of coevolution generations (only for
+            "coevolve" extractor). D195: 99% at 48-bit vs 71% for brute.
+        coevolve_pop_size: population size for coevolution.
         seed: random seed for reproducibility.
     """
 
     def __init__(self, bits, k_samples=20, d_hamming=2, b_unknown=None,
-                 extractor="lattice", m=8, t=7, seed=42):
+                 extractor="lattice", m=8, t=7,
+                 coevolve_generations=50, coevolve_pop_size=100,
+                 seed=42):
         self.bits = bits
         self.half = bits // 2
         self.k_samples = k_samples
@@ -83,6 +89,8 @@ class SpectralFactoring:
         self.extractor_name = extractor
         self.seed = seed
         self.rng = np.random.default_rng(seed)
+        self.coevolve_generations = coevolve_generations
+        self.coevolve_pop_size = coevolve_pop_size
 
         self.fe = FeatureExtractor(bits)
         self.posterior = ARPosterior(
@@ -93,6 +101,8 @@ class SpectralFactoring:
             self.extractor = CoppersmithExtractor(m=m, t=t)
         elif extractor == "brute":
             self.extractor = BruteForceExtractor()
+        elif extractor == "coevolve":
+            self.extractor = None  # coevolution doesn't use a per-candidate extractor
         else:
             raise ValueError(f"Unknown extractor: {extractor}")
         self._trained = False
@@ -175,6 +185,9 @@ class SpectralFactoring:
         f = self.fe.transform([N])[0]
         samples = self.posterior.sample(f, self.k_samples, self.rng)
 
+        if self.extractor_name == "coevolve":
+            return self._factor_coevolve(N, samples)
+
         for s in samples:
             s = int(s)
             for p_high in enumerate_high_ball(s, self.half,
@@ -184,6 +197,27 @@ class SpectralFactoring:
                     q = N // factor
                     if q * factor == N:
                         return (factor, q)
+        return None
+
+    def _factor_coevolve(self, N, samples):
+        """Factor using coevolutionary GA (D195).
+
+        Initializes both populations from posterior samples, then
+        coevolves the high bits of p and q via the constraint p*q ≈ N.
+        Achieves 99% at 48-bit vs 71% for brute-force (D195).
+        """
+        init_p = [int(s) for s in samples]
+        init_q = [int(N // s) if s > 0 else 1 for s in samples]
+        ga = CoevolutionaryGA(
+            N, self.half, self.b_unknown,
+            pop_size=min(self.coevolve_pop_size, len(init_p)),
+            seed=int(self.rng.integers(0, 2**31)),
+        )
+        factor, _ = ga.run(init_p, init_q, generations=self.coevolve_generations)
+        if factor is not None:
+            q = N // factor
+            if q * factor == N:
+                return (factor, q)
         return None
 
     def batch_factor(self, N_list):

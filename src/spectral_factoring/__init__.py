@@ -12,6 +12,7 @@ polynomial-time cost.  Beats NFS by 50-500x for RSA <= 180 bits.
 from .features import compute_features, FeatureExtractor
 from .posterior import ARPosterior
 from .extraction import CoppersmithExtractor, BruteForceExtractor
+from .coevolution import CoevolutionaryGA
 from .pipeline import SpectralFactoring, generate_semiprime, generate_dataset
 
 __all__ = [
@@ -20,6 +21,7 @@ __all__ = [
     "ARPosterior",
     "CoppersmithExtractor",
     "BruteForceExtractor",
+    "CoevolutionaryGA",
     "SpectralFactoring",
     "generate_semiprime",
     "generate_dataset",
