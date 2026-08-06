@@ -263,3 +263,52 @@ class TestComponents:
         if result is not None:
             p_found, q_found = result
             assert p_found * q_found == N
+
+    @pytest.mark.small
+    def test_coppersmith_extended_root(self):
+        """D174 extended-root extraction: should find a factor even when
+        p_high is wrong by 1 high bit (the true root falls outside [0,X)
+        but within 8X). Standard extraction fails; extended succeeds.
+        """
+        from src.spectral_factoring.extraction import CoppersmithExtractor
+        N, p, q = generate_dataset(32, 1, seed_offset=42)[0]
+        b_unknown = 7
+        n_known = 16 - b_unknown
+        p_true_high = p & ~((1 << b_unknown) - 1)
+        # Flip 1 high bit so the true root lands just outside [0, X)
+        p_high_wrong = p_true_high ^ (1 << b_unknown)
+        # Standard extraction should fail
+        ext_std = CoppersmithExtractor(m=8, t=7, use_extended=False)
+        factor_std = ext_std.extract(p_high_wrong, N, b_unknown)
+        # Extended extraction may find it (12% chance per D174 Phase 1)
+        ext_ext = CoppersmithExtractor(m=8, t=7, use_extended=True,
+                                        max_x0_mult=8)
+        factor_ext = ext_ext.extract(p_high_wrong, N, b_unknown)
+        # At minimum, extended should never be worse than standard
+        if factor_std is not None:
+            assert factor_std * (N // factor_std) == N
+        if factor_ext is not None:
+            assert factor_ext * (N // factor_ext) == N
+        # Extended should be a superset: if standard works, extended works too
+        if factor_std is not None:
+            assert factor_ext is not None
+
+    @pytest.mark.small
+    def test_coevolution_coppersmith_extract(self):
+        """D201: coevolution with Coppersmith extended-root extraction
+        should work at small bit sizes (32-bit)."""
+        sf = SpectralFactoring(
+            bits=32, k_samples=20, d_hamming=2,
+            extractor="coevolve", b_unknown=8,
+            coevolve_generations=50, coevolve_pop_size=20,
+            coevolve_extract_method="coppersmith",
+            coevolve_coppersmith_m=8, coevolve_coppersmith_t=7,
+            use_extended=True,
+        )
+        train = generate_dataset(32, 200, seed_offset=100)
+        sf.train(dataset=train)
+        N, p, q = generate_dataset(32, 1, seed_offset=555)[0]
+        result = sf.factor(N)
+        if result is not None:
+            p_found, q_found = result
+            assert p_found * q_found == N

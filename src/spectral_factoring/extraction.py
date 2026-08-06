@@ -9,6 +9,12 @@ For m=8, t=7 (dim=16): X < N^{1/2} >> N^{1/4} — works with slack.
 
 D157/D155's bug was using ONLY the main polynomials (dim=5), giving
 root bound X < 1 — useless. The 6.5% success was pure LLL luck.
+
+D174 extended-root trick: the Howgrave-Graham bound is sufficient but
+NOT necessary. LLL often finds roots slightly outside [0, X). By
+accepting roots with |x0| <= max_x0_mult * X (default 8X) and checking
+gcd(p_high + x0, N) > 1, we recover factors the standard extractor
+discards. D201 showed this gives +20pp at 64-bit (45% -> 65%).
 """
 
 from math import gcd, comb
@@ -120,24 +126,83 @@ def _find_roots(reduced, p_high, N, X, dim, max_rows=20):
     return None
 
 
+def _find_roots_extended(reduced, p_high, N, X, dim, max_rows=20,
+                         max_x0_mult=8):
+    """Extended root extraction (D174): accept roots OUTSIDE [0, X) when
+    they give a valid gcd. The Howgrave-Graham bound is sufficient but
+    not necessary; LLL often finds roots slightly outside the guaranteed
+    range. When the high bits are wrong by 1 bit, the true root x0 =
+    p_low + err lands just outside [0, X) — the standard extractor
+    rejects it, but gcd(p_high + x0, N) confirms it.
+
+    Args:
+        max_x0_mult: accept |x0| <= max_x0_mult * X (default 8X).
+
+    Returns the factor (int) or None.
+    """
+    N_i = int(N)
+    p_high_i = int(p_high)
+    max_x0 = X * max_x0_mult
+    seen = set()
+    for row in reduced[:max_rows]:
+        deg = dim - 1
+        while deg >= 0 and row[deg] == 0:
+            deg -= 1
+        if deg < 1:
+            continue
+        coeffs_np = [float(row[k]) for k in range(deg, -1, -1)]
+        try:
+            roots = np.roots(coeffs_np)
+        except Exception:
+            continue
+        for r in roots:
+            if abs(r.imag) > 1e-6:
+                continue
+            y0 = r.real
+            x0 = y0 * X
+            x0_int = int(round(x0))
+            if abs(x0 - x0_int) > 1e-3:
+                continue
+            if abs(x0_int) > max_x0:
+                continue
+            if x0_int in seen:
+                continue
+            seen.add(x0_int)
+            cand = p_high_i + x0_int
+            if 1 < cand < N_i and gcd(cand, N_i) > 1:
+                return cand
+    return None
+
+
 class CoppersmithExtractor:
-    """Corrected Coppersmith lattice extractor (D159).
+    """Corrected Coppersmith lattice extractor (D159) with extended-root
+    extraction (D174).
 
     Given the high bits of p (p_high) and the number of unknown low bits
     (b_unknown), find p via LLL on a lattice with x-shift polynomials.
+
+    D174 extended-root trick: by default, use _find_roots_extended which
+    accepts roots outside [0, X) up to max_x0_mult * X when they give a
+    valid gcd. This recovers factors the standard extractor discards
+    (+20pp at 64-bit, D201).
 
     Args:
         m: number of main Howgrave-Graham polynomials minus 1.
         t: number of x-shift polynomials.
         use_bkz: whether to also run BKZ after LLL.
         bkz_block: BKZ block size.
+        use_extended: if True (default), use D174 extended root extraction.
+        max_x0_mult: accept |x0| <= max_x0_mult * X (default 8).
     """
 
-    def __init__(self, m=8, t=7, use_bkz=False, bkz_block=20):
+    def __init__(self, m=8, t=7, use_bkz=False, bkz_block=20,
+                 use_extended=True, max_x0_mult=8):
         self.m = m
         self.t = t
         self.use_bkz = use_bkz
         self.bkz_block = bkz_block
+        self.use_extended = use_extended
+        self.max_x0_mult = max_x0_mult
         self.dim = m + 1 + t
 
     def extract(self, p_high, N, b_unknown):
@@ -167,6 +232,9 @@ class CoppersmithExtractor:
                             * (p_high_i ** (self.m - k)))
             rows.append(r)
         reduced = _reduce_lattice(rows, use_bkz=self.use_bkz, bkz_block=self.bkz_block)
+        if self.use_extended:
+            return _find_roots_extended(reduced, p_high, N, X, dim,
+                                        max_x0_mult=self.max_x0_mult)
         return _find_roots(reduced, p_high, N, X, dim)
 
 

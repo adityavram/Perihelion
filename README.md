@@ -4,11 +4,11 @@
 
 ## Overview
 
-Perihelion is a research project investigating whether integer factorization (particularly semiprimes N = p × q) can be solved in polynomial time. The project has explored 198 research directions across 32+ mathematical fields, producing both a practical factoring algorithm and a comprehensive characterization of the computational barriers.
+Perihelion is a research project investigating whether integer factorization (particularly semiprimes N = p × q) can be solved in polynomial time. The project has explored 201 research directions across 32+ mathematical fields, producing both a practical factoring algorithm and a comprehensive characterization of the computational barriers.
 
 ## Current Status
 
-### The Spectral Factoring Algorithm (D147/D143/D159/D157/D195)
+### The Spectral Factoring Algorithm (D147/D143/D159/D157/D195/D201)
 
 We have built a factoring algorithm that combines:
 
@@ -24,13 +24,15 @@ We have built a factoring algorithm that combines:
 
 6. **Multi-restart** (D197/D198): running coevolution R times with different seeds. At 64-bit: R=20 gives 27% success with Coppersmith extraction (polynomial-time cost, 0.035× √N).
 
+7. **Extended-root extraction** (D174/D201): the Coppersmith lattice often finds roots slightly outside the guaranteed Howgrave-Graham bound [0, X). By accepting roots with |x0| ≤ 8X and checking gcd(p_high + x0, N), we recover factors the standard extractor discards. Integrated into `CoppersmithExtractor` (default `use_extended=True`) and `CoevolutionaryGA` (`extract_method="coppersmith"`). D201 showed this gives +20pp at 64-bit (45% → 65%).
+
 ### Performance
 
 | Bit size | Success rate | Cost vs √N | Cost vs NFS | Method |
 |----------|-------------|------------|-------------|--------|
 | 32-bit | 100% | 0.02× | 0.02× | Coevolution, R=1 |
 | 48-bit | 100% | 0.005× | 0.005× | Multi-restart coevolution, R=3 |
-| 64-bit | 27% | 0.035× | 0.001× | Multi-restart + Coppersmith, R=20 |
+| 64-bit | 65% | 0.035× | 0.001× | Coevolution + extended Coppersmith, R=10 (D201) |
 
 The algorithm beats NFS by 50-500× for RSA ≤ 180 bits (D162).
 
@@ -38,11 +40,11 @@ The algorithm beats NFS by 50-500× for RSA ≤ 180 bits (D162).
 
 The AR posterior extracts ~3.5 bits of concentration (stable, non-decaying). This fixes the top ~3 bits of p. The Hamming distance to the true p grows linearly: d(n) ≈ 0.08n (D170, R²=0.9965). The polynomial-time regime (d=2) extends to n≈48. Beyond that, d must grow, making the cost super-polynomial.
 
-At 64-bit, the coevolution + multi-restart approach achieves 27% with polynomial-time Coppersmith extraction. The 27% ceiling is a new form of the barrier: 27% of semiprimes are "coevolution-easy" (the high bits are findable), 73% are hard.
+At 64-bit, the coevolution + extended Coppersmith approach achieves 65% (D201). The 35% remaining are the hard cases where the posterior's p_high error exceeds the single-bit extended-root channel width (D174). D199 showed these easy/hard classes are identifiable via spectral features (AUC 0.747) and residues (N mod 53, N mod 17), and are NOT simply close primes.
 
 ## The Barrier System
 
-After 198 directions across 32+ mathematical fields, the barrier is characterized from every angle:
+After 201 directions across 32+ mathematical fields, the barrier is characterized from every angle:
 
 ### The Three Mechanisms (D113-D115)
 1. **M1 (Multiplicative OTP)**: N mod M = (p mod M)·(q mod M) mod M. For prime M < √N, the key q mod M is uniform → perfect pad → zero excess information. Broken by additive functions (bitlen, N mod √N, carries), but breaking M1 alone doesn't help.
@@ -77,8 +79,8 @@ Perihelion/
 │       └── pipeline.py        # Full SpectralFactoring pipeline
 ├── tests/                     # Unit and integration tests
 │   └── test_spectral_factoring.py
-├── experiments/                # 198 research direction scripts
-├── direction-*.md             # Research writeups (D116-D198)
+├── experiments/                # 201 research direction scripts
+├── direction-*.md             # Research writeups (D116-D201)
 └── README.md
 ```
 

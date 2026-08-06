@@ -77,6 +77,9 @@ class SpectralFactoring:
     def __init__(self, bits, k_samples=20, d_hamming=2, b_unknown=None,
                  extractor="lattice", m=8, t=7,
                  coevolve_generations=50, coevolve_pop_size=100,
+                 coevolve_extract_method="brute",
+                 coevolve_coppersmith_m=5, coevolve_coppersmith_t=4,
+                 use_extended=True, try_q=True,
                  seed=42):
         self.bits = bits
         self.half = bits // 2
@@ -91,6 +94,11 @@ class SpectralFactoring:
         self.rng = np.random.default_rng(seed)
         self.coevolve_generations = coevolve_generations
         self.coevolve_pop_size = coevolve_pop_size
+        self.coevolve_extract_method = coevolve_extract_method
+        self.coevolve_coppersmith_m = coevolve_coppersmith_m
+        self.coevolve_coppersmith_t = coevolve_coppersmith_t
+        self.use_extended = use_extended
+        self.try_q = try_q
 
         self.fe = FeatureExtractor(bits)
         self.posterior = ARPosterior(
@@ -98,7 +106,8 @@ class SpectralFactoring:
             n_bits=self.half,
         )
         if extractor == "lattice":
-            self.extractor = CoppersmithExtractor(m=m, t=t)
+            self.extractor = CoppersmithExtractor(
+                m=m, t=t, use_extended=use_extended)
         elif extractor == "brute":
             self.extractor = BruteForceExtractor()
         elif extractor == "coevolve":
@@ -200,11 +209,15 @@ class SpectralFactoring:
         return None
 
     def _factor_coevolve(self, N, samples):
-        """Factor using coevolutionary GA (D195).
+        """Factor using coevolutionary GA (D195 + D201).
 
         Initializes both populations from posterior samples, then
         coevolves the high bits of p and q via the constraint p*q ≈ N.
-        Achieves 99% at 48-bit vs 71% for brute-force (D195).
+        Achieves 99% at 48-bit vs 71% for brute (D195).
+        With coppersmith extract + D174 extended roots, 65% at 64-bit (D201).
+
+        Set coevolve_extract_method="coppersmith" for 64-bit+ where
+        brute-force at b_unknown=16 is infeasible.
         """
         init_p = [int(s) for s in samples]
         init_q = [int(N // s) if s > 0 else 1 for s in samples]
@@ -212,6 +225,10 @@ class SpectralFactoring:
             N, self.half, self.b_unknown,
             pop_size=min(self.coevolve_pop_size, len(init_p)),
             seed=int(self.rng.integers(0, 2**31)),
+            extract_method=self.coevolve_extract_method,
+            coppersmith_m=self.coevolve_coppersmith_m,
+            coppersmith_t=self.coevolve_coppersmith_t,
+            use_extended=self.use_extended, try_q=self.try_q,
         )
         factor, _ = ga.run(init_p, init_q, generations=self.coevolve_generations)
         if factor is not None:
