@@ -1,0 +1,33 @@
+{
+  "phase1_d_high": {
+    "n_posteriors": 500,
+    "n_test": 20,
+    "d_high_mean": 6.3,
+    "d_high_median": 6.5,
+    "d_high_min": 4,
+    "d_high_max": 7,
+    "bits_extracted": 25.7,
+    "d_high_per_instance": [
+      7,
+      7,
+      7,
+      6,
+      7,
+      4,
+      6,
+      6,
+      7,
+      7,
+      5,
+      7,
+      6,
+      7,
+      7,
+      5,
+      6,
+      6,
+      7,
+      6
+    ]
+  }
+}
