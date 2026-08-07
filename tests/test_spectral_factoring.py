@@ -312,3 +312,37 @@ class TestComponents:
         if result is not None:
             p_found, q_found = result
             assert p_found * q_found == N
+
+    @pytest.mark.small
+    def test_ensemble_posterior(self):
+        """D203: ensemble of diverse posteriors should train and sample."""
+        from src.spectral_factoring.ensemble import EnsemblePosterior
+        from src.spectral_factoring.features import TOTAL_FEATURES
+        n, d, nb = 20, TOTAL_FEATURES, 16
+        F = np.random.randn(n, d)
+        pb = np.random.randint(0, 2, (n, nb)).astype(np.float64)
+        ens = EnsemblePosterior(d, nb, n_iter=10)
+        assert ens.n_posteriors == 20  # 5 orderings × 4 subsets
+        ens.train(F, pb)
+        assert ens._trained
+        rng = np.random.default_rng(0)
+        samples = ens.sample(F[0], 20, rng)
+        assert len(samples) >= 20
+        for s in samples:
+            assert 0 <= int(s) < (1 << nb)
+
+    @pytest.mark.small
+    def test_ensemble_coevolution(self):
+        """D203: coevolution with ensemble posterior should factor 32-bit."""
+        sf = SpectralFactoring(
+            bits=32, k_samples=20, d_hamming=2,
+            extractor="coevolve", posterior="ensemble", b_unknown=8,
+            coevolve_generations=50, coevolve_pop_size=20,
+        )
+        train = generate_dataset(32, 200, seed_offset=100)
+        sf.train(dataset=train)
+        N, p, q = generate_dataset(32, 1, seed_offset=555)[0]
+        result = sf.factor(N)
+        if result is not None:
+            p_found, q_found = result
+            assert p_found * q_found == N

@@ -1,0 +1,371 @@
+{
+  "phase2_d_high": [
+    {
+      "i": 0,
+      "N": 9320193559820786809,
+      "class": 3,
+      "d_high_general": 4,
+      "d_high_class": 4,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 1,
+      "N": 10384919949125009209,
+      "class": 30,
+      "d_high_general": 4,
+      "d_high_class": 4,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 2,
+      "N": 7517317842157054453,
+      "class": 6,
+      "d_high_general": 2,
+      "d_high_class": 2,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 3,
+      "N": 8776888918324772101,
+      "class": 2,
+      "d_high_general": 4,
+      "d_high_class": 4,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 4,
+      "N": 5651185638541150427,
+      "class": 31,
+      "d_high_general": 2,
+      "d_high_class": 2,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 5,
+      "N": 9692906683740837019,
+      "class": 5,
+      "d_high_general": 3,
+      "d_high_class": 3,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 6,
+      "N": 9295292175641369687,
+      "class": 10,
+      "d_high_general": 4,
+      "d_high_class": 4,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 7,
+      "N": 8567347475343603283,
+      "class": 35,
+      "d_high_general": 3,
+      "d_high_class": 3,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 8,
+      "N": 9827166775173273521,
+      "class": 41,
+      "d_high_general": 3,
+      "d_high_class": 3,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 9,
+      "N": 14409651790020433651,
+      "class": 14,
+      "d_high_general": 3,
+      "d_high_class": 3,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 10,
+      "N": 14836011817390870297,
+      "class": 35,
+      "d_high_general": 3,
+      "d_high_class": 3,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 11,
+      "N": 10693851939537773159,
+      "class": 44,
+      "d_high_general": 4,
+      "d_high_class": 4,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 12,
+      "N": 16889924800472276009,
+      "class": 38,
+      "d_high_general": 1,
+      "d_high_class": 1,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 13,
+      "N": 8267667138634816217,
+      "class": 45,
+      "d_high_general": 2,
+      "d_high_class": 2,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 14,
+      "N": 7607433146422864067,
+      "class": 52,
+      "d_high_general": 4,
+      "d_high_class": 4,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 15,
+      "N": 13964612532433411579,
+      "class": 50,
+      "d_high_general": 3,
+      "d_high_class": 3,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 16,
+      "N": 9257684127549423623,
+      "class": 4,
+      "d_high_general": 3,
+      "d_high_class": 3,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 17,
+      "N": 12767421102699372293,
+      "class": 16,
+      "d_high_general": 3,
+      "d_high_class": 3,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 18,
+      "N": 8593185291831999379,
+      "class": 15,
+      "d_high_general": 3,
+      "d_high_class": 3,
+      "improvement": 0,
+      "class_specific": false
+    },
+    {
+      "i": 19,
+      "N": 11210003907401944247,
+      "class": 39,
+      "d_high_general": 5,
+      "d_high_class": 5,
+      "improvement": 0,
+      "class_specific": false
+    }
+  ],
+  "phase3_coevolution": {
+    "n_test": 20,
+    "success": 11,
+    "success_rate": 0.55,
+    "per_instance": [
+      {
+        "i": 0,
+        "N": 9320193559820786809,
+        "class": 3,
+        "success": true,
+        "first_success_R": 4,
+        "evals": 21493,
+        "time": 61.04426288604736
+      },
+      {
+        "i": 1,
+        "N": 10384919949125009209,
+        "class": 30,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 4174,
+        "time": 72.74858593940735
+      },
+      {
+        "i": 2,
+        "N": 7517317842157054453,
+        "class": 6,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 255.41428089141846
+      },
+      {
+        "i": 3,
+        "N": 8776888918324772101,
+        "class": 2,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 440.84993267059326
+      },
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "class": 31,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 624.8324248790741
+      },
+      {
+        "i": 5,
+        "N": 9692906683740837019,
+        "class": 5,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 10179,
+        "time": 653.88596367836
+      },
+      {
+        "i": 6,
+        "N": 9295292175641369687,
+        "class": 10,
+        "success": true,
+        "first_success_R": 7,
+        "evals": 39566,
+        "time": 765.5689127445221
+      },
+      {
+        "i": 7,
+        "N": 8567347475343603283,
+        "class": 35,
+        "success": true,
+        "first_success_R": 7,
+        "evals": 41846,
+        "time": 883.5322639942169
+      },
+      {
+        "i": 8,
+        "N": 9827166775173273521,
+        "class": 41,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 7212,
+        "time": 903.9732928276062
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "class": 14,
+        "success": true,
+        "first_success_R": 6,
+        "evals": 35846,
+        "time": 1006.2955389022827
+      },
+      {
+        "i": 10,
+        "N": 14836011817390870297,
+        "class": 35,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 1190.9675409793854
+      },
+      {
+        "i": 11,
+        "N": 10693851939537773159,
+        "class": 44,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 1347.2051298618317
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "class": 38,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 6919,
+        "time": 1365.3604397773743
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "class": 45,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 1528.716372013092
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "class": 52,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 1689.0855460166931
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "class": 50,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 1851.404501914978
+      },
+      {
+        "i": 16,
+        "N": 9257684127549423623,
+        "class": 4,
+        "success": true,
+        "first_success_R": 8,
+        "evals": 46435,
+        "time": 1967.0733120441437
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "class": 16,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 2131.9522058963776
+      },
+      {
+        "i": 18,
+        "N": 8593185291831999379,
+        "class": 15,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 12104,
+        "time": 2161.1919009685516
+      },
+      {
+        "i": 19,
+        "N": 11210003907401944247,
+        "class": 39,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 4437,
+        "time": 2172.249317884445
+      }
+    ]
+  }
+}

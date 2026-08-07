@@ -1,0 +1,776 @@
+{
+  "A_baseline": {
+    "strategy": "A_baseline",
+    "R": 10,
+    "pop": 80,
+    "gen": 40,
+    "b_unknown": 16,
+    "extract_method": "coppersmith_ext",
+    "mut_mode": "standard",
+    "use_q_posterior": false,
+    "use_both_posteriors": false,
+    "n_test": 7,
+    "success": 3,
+    "success_rate": 0.42857142857142855,
+    "per_instance": [
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "p_true": 2479844921,
+        "q_true": 2278846387,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 167.6305410861969
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "p_true": 4116172129,
+        "q_true": 3500740819,
+        "success": true,
+        "first_success_R": 4,
+        "evals": 19548,
+        "time": 45.340182065963745
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "p_true": 4241890397,
+        "q_true": 3981697597,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 6484,
+        "time": 15.645403861999512
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "p_true": 3548295833,
+        "q_true": 2330038849,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 157.06242108345032
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "p_true": 3454614679,
+        "q_true": 2202107573,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 155.0109519958496
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "p_true": 4167560027,
+        "q_true": 3350788577,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 155.40531992912292
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "p_true": 4246206541,
+        "q_true": 3006782873,
+        "success": true,
+        "first_success_R": 4,
+        "evals": 19683,
+        "time": 47.63164782524109
+      }
+    ]
+  },
+  "B_R30": {
+    "strategy": "B_R30",
+    "R": 30,
+    "pop": 80,
+    "gen": 40,
+    "b_unknown": 16,
+    "extract_method": "coppersmith_ext",
+    "mut_mode": "standard",
+    "use_q_posterior": false,
+    "use_both_posteriors": false,
+    "n_test": 7,
+    "success": 3,
+    "success_rate": 0.42857142857142855,
+    "per_instance": [
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "p_true": 2479844921,
+        "q_true": 2278846387,
+        "success": false,
+        "first_success_R": null,
+        "evals": 194400,
+        "time": 466.91600704193115
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "p_true": 4116172129,
+        "q_true": 3500740819,
+        "success": true,
+        "first_success_R": 4,
+        "evals": 19548,
+        "time": 47.03917407989502
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "p_true": 4241890397,
+        "q_true": 3981697597,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 6484,
+        "time": 17.092758655548096
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "p_true": 3548295833,
+        "q_true": 2330038849,
+        "success": false,
+        "first_success_R": null,
+        "evals": 194400,
+        "time": 466.8516159057617
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "p_true": 3454614679,
+        "q_true": 2202107573,
+        "success": false,
+        "first_success_R": null,
+        "evals": 194400,
+        "time": 465.8476622104645
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "p_true": 4167560027,
+        "q_true": 3350788577,
+        "success": false,
+        "first_success_R": null,
+        "evals": 194400,
+        "time": 464.6667959690094
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "p_true": 4246206541,
+        "q_true": 3006782873,
+        "success": true,
+        "first_success_R": 4,
+        "evals": 19683,
+        "time": 47.021862268447876
+      }
+    ]
+  },
+  "C_pop200": {
+    "strategy": "C_pop200",
+    "R": 10,
+    "pop": 200,
+    "gen": 40,
+    "b_unknown": 16,
+    "extract_method": "coppersmith_ext",
+    "mut_mode": "standard",
+    "use_q_posterior": false,
+    "use_both_posteriors": false,
+    "n_test": 7,
+    "success": 3,
+    "success_rate": 0.42857142857142855,
+    "per_instance": [
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "p_true": 2479844921,
+        "q_true": 2278846387,
+        "success": false,
+        "first_success_R": null,
+        "evals": 162000,
+        "time": 388.24618911743164
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "p_true": 4116172129,
+        "q_true": 3500740819,
+        "success": true,
+        "first_success_R": 3,
+        "evals": 36654,
+        "time": 96.11189723014832
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "p_true": 4241890397,
+        "q_true": 3981697597,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 901,
+        "time": 2.167083978652954
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "p_true": 3548295833,
+        "q_true": 2330038849,
+        "success": false,
+        "first_success_R": null,
+        "evals": 162000,
+        "time": 395.24407386779785
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "p_true": 3454614679,
+        "q_true": 2202107573,
+        "success": false,
+        "first_success_R": null,
+        "evals": 162000,
+        "time": 389.73285007476807
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "p_true": 4167560027,
+        "q_true": 3350788577,
+        "success": false,
+        "first_success_R": null,
+        "evals": 162000,
+        "time": 330.492968082428
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "p_true": 4246206541,
+        "q_true": 3006782873,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 26,
+        "time": 0.07126307487487793
+      }
+    ]
+  },
+  "D_gen100": {
+    "strategy": "D_gen100",
+    "R": 10,
+    "pop": 80,
+    "gen": 100,
+    "b_unknown": 16,
+    "extract_method": "coppersmith_ext",
+    "mut_mode": "standard",
+    "use_q_posterior": false,
+    "use_both_posteriors": false,
+    "n_test": 7,
+    "success": 3,
+    "success_rate": 0.42857142857142855,
+    "per_instance": [
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "p_true": 2479844921,
+        "q_true": 2278846387,
+        "success": false,
+        "first_success_R": null,
+        "evals": 160800,
+        "time": 311.10426115989685
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "p_true": 4116172129,
+        "q_true": 3500740819,
+        "success": true,
+        "first_success_R": 4,
+        "evals": 48348,
+        "time": 94.91829919815063
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "p_true": 4241890397,
+        "q_true": 3981697597,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 16084,
+        "time": 31.853379011154175
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "p_true": 3548295833,
+        "q_true": 2330038849,
+        "success": false,
+        "first_success_R": null,
+        "evals": 160800,
+        "time": 312.4478647708893
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "p_true": 3454614679,
+        "q_true": 2202107573,
+        "success": false,
+        "first_success_R": null,
+        "evals": 160800,
+        "time": 312.3702850341797
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "p_true": 4167560027,
+        "q_true": 3350788577,
+        "success": false,
+        "first_success_R": null,
+        "evals": 160800,
+        "time": 315.77876496315
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "p_true": 4246206541,
+        "q_true": 3006782873,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 7222,
+        "time": 14.07063913345337
+      }
+    ]
+  },
+  "E_mut_wide": {
+    "strategy": "E_mut_wide",
+    "R": 10,
+    "pop": 80,
+    "gen": 40,
+    "b_unknown": 16,
+    "extract_method": "coppersmith_ext",
+    "mut_mode": "wide",
+    "use_q_posterior": false,
+    "use_both_posteriors": false,
+    "n_test": 7,
+    "success": 3,
+    "success_rate": 0.42857142857142855,
+    "per_instance": [
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "p_true": 2479844921,
+        "q_true": 2278846387,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 125.76469206809998
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "p_true": 4116172129,
+        "q_true": 3500740819,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 2433,
+        "time": 4.797384977340698
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "p_true": 4241890397,
+        "q_true": 3981697597,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 1011,
+        "time": 2.000380039215088
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "p_true": 3548295833,
+        "q_true": 2330038849,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 176.4247009754181
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "p_true": 3454614679,
+        "q_true": 2202107573,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 157.83552718162537
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "p_true": 4167560027,
+        "q_true": 3350788577,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 147.39328289031982
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "p_true": 4246206541,
+        "q_true": 3006782873,
+        "success": true,
+        "first_success_R": 6,
+        "evals": 34104,
+        "time": 81.54730606079102
+      }
+    ]
+  },
+  "F_predict_q": {
+    "strategy": "F_predict_q",
+    "R": 10,
+    "pop": 80,
+    "gen": 40,
+    "b_unknown": 16,
+    "extract_method": "coppersmith_ext",
+    "mut_mode": "standard",
+    "use_q_posterior": true,
+    "use_both_posteriors": false,
+    "n_test": 7,
+    "success": 2,
+    "success_rate": 0.2857142857142857,
+    "per_instance": [
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "p_true": 2479844921,
+        "q_true": 2278846387,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 148.535236120224
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "p_true": 4116172129,
+        "q_true": 3500740819,
+        "success": true,
+        "first_success_R": 6,
+        "evals": 38488,
+        "time": 86.8677351474762
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "p_true": 4241890397,
+        "q_true": 3981697597,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 148.467915058136
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "p_true": 3548295833,
+        "q_true": 2330038849,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 146.76491904258728
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "p_true": 3454614679,
+        "q_true": 2202107573,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 146.57174468040466
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "p_true": 4167560027,
+        "q_true": 3350788577,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 146.88504815101624
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "p_true": 4246206541,
+        "q_true": 3006782873,
+        "success": true,
+        "first_success_R": 5,
+        "evals": 26360,
+        "time": 59.4169979095459
+      }
+    ]
+  },
+  "G_both_post": {
+    "strategy": "G_both_post",
+    "R": 10,
+    "pop": 80,
+    "gen": 40,
+    "b_unknown": 16,
+    "extract_method": "coppersmith_ext",
+    "mut_mode": "standard",
+    "use_q_posterior": false,
+    "use_both_posteriors": true,
+    "n_test": 7,
+    "success": 1,
+    "success_rate": 0.14285714285714285,
+    "per_instance": [
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "p_true": 2479844921,
+        "q_true": 2278846387,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 144.3667597770691
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "p_true": 4116172129,
+        "q_true": 3500740819,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 12088,
+        "time": 29.103151321411133
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "p_true": 4241890397,
+        "q_true": 3981697597,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 147.19483494758606
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "p_true": 3548295833,
+        "q_true": 2330038849,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 145.5685260295868
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "p_true": 3454614679,
+        "q_true": 2202107573,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 126.08045601844788
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "p_true": 4167560027,
+        "q_true": 3350788577,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 126.47003126144409
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "p_true": 4246206541,
+        "q_true": 3006782873,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 126.24666500091553
+      }
+    ]
+  },
+  "H_brute_bu12": {
+    "strategy": "H_brute_bu12",
+    "R": 10,
+    "pop": 80,
+    "gen": 40,
+    "b_unknown": 12,
+    "extract_method": "brute",
+    "mut_mode": "standard",
+    "use_q_posterior": false,
+    "use_both_posteriors": false,
+    "n_test": 7,
+    "success": 1,
+    "success_rate": 0.14285714285714285,
+    "per_instance": [
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "p_true": 2479844921,
+        "q_true": 2278846387,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 102.4985899925232
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "p_true": 4116172129,
+        "q_true": 3500740819,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 103.35737490653992
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "p_true": 4241890397,
+        "q_true": 3981697597,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 103.77424693107605
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "p_true": 3548295833,
+        "q_true": 2330038849,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 2422,
+        "time": 3.917248010635376
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "p_true": 3454614679,
+        "q_true": 2202107573,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 103.39447402954102
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "p_true": 4167560027,
+        "q_true": 3350788577,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 103.95231914520264
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "p_true": 4246206541,
+        "q_true": 3006782873,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 104.09398293495178
+      }
+    ]
+  },
+  "I_combined": {
+    "strategy": "I_combined",
+    "R": 30,
+    "pop": 200,
+    "gen": 40,
+    "b_unknown": 16,
+    "extract_method": "coppersmith_ext",
+    "mut_mode": "wide",
+    "use_q_posterior": false,
+    "use_both_posteriors": true,
+    "n_test": 7,
+    "success": 3,
+    "success_rate": 0.42857142857142855,
+    "per_instance": [
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "p_true": 2479844921,
+        "q_true": 2278846387,
+        "success": false,
+        "first_success_R": null,
+        "evals": 486000,
+        "time": 954.6286468505859
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "p_true": 4116172129,
+        "q_true": 3500740819,
+        "success": true,
+        "first_success_R": 7,
+        "evals": 99922,
+        "time": 260.87245893478394
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "p_true": 4241890397,
+        "q_true": 3981697597,
+        "success": true,
+        "first_success_R": 12,
+        "evals": 179216,
+        "time": 448.447212934494
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "p_true": 3548295833,
+        "q_true": 2330038849,
+        "success": false,
+        "first_success_R": null,
+        "evals": 486000,
+        "time": 1096.8828058242798
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "p_true": 3454614679,
+        "q_true": 2202107573,
+        "success": false,
+        "first_success_R": null,
+        "evals": 486000,
+        "time": 1102.0262126922607
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "p_true": 4167560027,
+        "q_true": 3350788577,
+        "success": false,
+        "first_success_R": null,
+        "evals": 486000,
+        "time": 1103.2182760238647
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "p_true": 4246206541,
+        "q_true": 3006782873,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 26,
+        "time": 0.07944679260253906
+      }
+    ]
+  }
+}

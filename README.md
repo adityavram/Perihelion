@@ -4,11 +4,11 @@
 
 ## Overview
 
-Perihelion is a research project investigating whether integer factorization (particularly semiprimes N = p × q) can be solved in polynomial time. The project has explored 201 research directions across 32+ mathematical fields, producing both a practical factoring algorithm and a comprehensive characterization of the computational barriers.
+Perihelion is a research project investigating whether integer factorization (particularly semiprimes N = p × q) can be solved in polynomial time. The project has explored 206 research directions across 32+ mathematical fields, producing both a practical factoring algorithm and a comprehensive characterization of the computational barriers.
 
 ## Current Status
 
-### The Spectral Factoring Algorithm (D147/D143/D159/D157/D195/D201)
+### The Spectral Factoring Algorithm (D147/D143/D159/D157/D195/D201/D203)
 
 We have built a factoring algorithm that combines:
 
@@ -26,25 +26,27 @@ We have built a factoring algorithm that combines:
 
 7. **Extended-root extraction** (D174/D201): the Coppersmith lattice often finds roots slightly outside the guaranteed Howgrave-Graham bound [0, X). By accepting roots with |x0| ≤ 8X and checking gcd(p_high + x0, N), we recover factors the standard extractor discards. Integrated into `CoppersmithExtractor` (default `use_extended=True`) and `CoevolutionaryGA` (`extract_method="coppersmith"`). D201 showed this gives +20pp at 64-bit (45% → 65%).
 
+8. **Ensemble of diverse posteriors** (D203): trains 20 independent AR posteriors with different bit orderings (MSB-first, LSB-first, even-odd, random) and feature subsets (all, spectral-only, arithmetic-only, mod-residues-only). The union of all samples reduces d_high from 3.15 to 1.35 — a 1.8-bit improvement via model diversity. Integrated as `EnsemblePosterior` (use `posterior="ensemble"` in `SpectralFactoring`). D203 showed this gives +15pp at 64-bit (55% → 70%).
+
 ### Performance
 
 | Bit size | Success rate | Cost vs √N | Cost vs NFS | Method |
 |----------|-------------|------------|-------------|--------|
 | 32-bit | 100% | 0.02× | 0.02× | Coevolution, R=1 |
 | 48-bit | 100% | 0.005× | 0.005× | Multi-restart coevolution, R=3 |
-| 64-bit | 65% | 0.035× | 0.001× | Coevolution + extended Coppersmith, R=10 (D201) |
+| 64-bit | 70% | 0.035× | 0.001× | Ensemble posterior + coevolution + extended Coppersmith, R=10 (D203) |
 
 The algorithm beats NFS by 50-500× for RSA ≤ 180 bits (D162).
 
 ### The Scaling Barrier
 
-The AR posterior extracts ~3.5 bits of concentration (stable, non-decaying). This fixes the top ~3 bits of p. The Hamming distance to the true p grows linearly: d(n) ≈ 0.08n (D170, R²=0.9965). The polynomial-time regime (d=2) extends to n≈48. Beyond that, d must grow, making the cost super-polynomial.
+The AR posterior extracts ~3.5 bits of concentration (stable, non-decaying). The D203 ensemble of 20 diverse posteriors reduces the effective d_high from 3.15 to 1.35, extracting ~5.15 bits — still within the FM4 ceiling of ~6.5 bits. The Hamming distance to the true p grows linearly: d(n) ≈ 0.08n (D170, R²=0.9965). The polynomial-time regime (d=2) extends to n≈48. Beyond that, the ensemble extends partial success to 64-bit (70%).
 
-At 64-bit, the coevolution + extended Coppersmith approach achieves 65% (D201). The 35% remaining are the hard cases where the posterior's p_high error exceeds the single-bit extended-root channel width (D174). D199 showed these easy/hard classes are identifiable via spectral features (AUC 0.747) and residues (N mod 53, N mod 17), and are NOT simply close primes.
+At 64-bit, the ensemble + coevolution + extended Coppersmith approach achieves 70% (D203). The 30% remaining are cases where even the ensemble's best sample has d_high ≤ 2 but coevolution's search fails to find it — the bottleneck has shifted from the posterior to the coevolution search strategy. D199 showed these easy/hard classes are identifiable via spectral features (AUC 0.747) and residues (N mod 53, N mod 17), and are NOT simply close primes.
 
 ## The Barrier System
 
-After 201 directions across 32+ mathematical fields, the barrier is characterized from every angle:
+After 206 directions across 32+ mathematical fields, the barrier is characterized from every angle:
 
 ### The Three Mechanisms (D113-D115)
 1. **M1 (Multiplicative OTP)**: N mod M = (p mod M)·(q mod M) mod M. For prime M < √N, the key q mod M is uniform → perfect pad → zero excess information. Broken by additive functions (bitlen, N mod √N, carries), but breaking M1 alone doesn't help.
@@ -76,11 +78,12 @@ Perihelion/
 │       ├── posterior.py       # Autoregressive posterior over p's bits
 │       ├── extraction.py      # Coppersmith lattice + brute-force GCD
 │       ├── coevolution.py     # Coevolutionary GA for high-bit refinement
+│       ├── ensemble.py        # D203 ensemble of diverse posteriors
 │       └── pipeline.py        # Full SpectralFactoring pipeline
 ├── tests/                     # Unit and integration tests
 │   └── test_spectral_factoring.py
-├── experiments/                # 201 research direction scripts
-├── direction-*.md             # Research writeups (D116-D201)
+├── experiments/                # 206 research direction scripts
+├── direction-*.md             # Research writeups (D116-D206)
 └── README.md
 ```
 

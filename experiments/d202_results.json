@@ -1,0 +1,413 @@
+{
+  "phase1_copper_ext": {
+    "n_test": 20,
+    "success": 11,
+    "success_rate": 0.55,
+    "per_instance": [
+      {
+        "i": 0,
+        "N": 9320193559820786809,
+        "success": true,
+        "first_success_R": 4,
+        "evals": 21493,
+        "time": 54.24200487136841,
+        "method": "copper_ext"
+      },
+      {
+        "i": 1,
+        "N": 10384919949125009209,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 4174,
+        "time": 11.246422052383423,
+        "method": "copper_ext"
+      },
+      {
+        "i": 2,
+        "N": 7517317842157054453,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 177.23672771453857,
+        "method": "copper_ext"
+      },
+      {
+        "i": 3,
+        "N": 8776888918324772101,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 176.72868013381958,
+        "method": "copper_ext"
+      },
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 175.94180393218994,
+        "method": "copper_ext"
+      },
+      {
+        "i": 5,
+        "N": 9692906683740837019,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 10179,
+        "time": 29.560898065567017,
+        "method": "copper_ext"
+      },
+      {
+        "i": 6,
+        "N": 9295292175641369687,
+        "success": true,
+        "first_success_R": 7,
+        "evals": 39566,
+        "time": 104.511146068573,
+        "method": "copper_ext"
+      },
+      {
+        "i": 7,
+        "N": 8567347475343603283,
+        "success": true,
+        "first_success_R": 7,
+        "evals": 41846,
+        "time": 118.96167993545532,
+        "method": "copper_ext"
+      },
+      {
+        "i": 8,
+        "N": 9827166775173273521,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 7212,
+        "time": 20.887672901153564,
+        "method": "copper_ext"
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "success": true,
+        "first_success_R": 6,
+        "evals": 35846,
+        "time": 102.41662883758545,
+        "method": "copper_ext"
+      },
+      {
+        "i": 10,
+        "N": 14836011817390870297,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 175.32177901268005,
+        "method": "copper_ext"
+      },
+      {
+        "i": 11,
+        "N": 10693851939537773159,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 166.07586884498596,
+        "method": "copper_ext"
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 6919,
+        "time": 20.71786594390869,
+        "method": "copper_ext"
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 167.60968494415283,
+        "method": "copper_ext"
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 168.20733094215393,
+        "method": "copper_ext"
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 162.6312770843506,
+        "method": "copper_ext"
+      },
+      {
+        "i": 16,
+        "N": 9257684127549423623,
+        "success": true,
+        "first_success_R": 8,
+        "evals": 46435,
+        "time": 118.69280695915222,
+        "method": "copper_ext"
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 153.48165106773376,
+        "method": "copper_ext"
+      },
+      {
+        "i": 18,
+        "N": 8593185291831999379,
+        "success": true,
+        "first_success_R": 2,
+        "evals": 12104,
+        "time": 31.595226049423218,
+        "method": "copper_ext"
+      },
+      {
+        "i": 19,
+        "N": 11210003907401944247,
+        "success": true,
+        "first_success_R": 1,
+        "evals": 4437,
+        "time": 11.88569188117981,
+        "method": "copper_ext"
+      }
+    ],
+    "time_s": 627.5905089378357
+  },
+  "phase2_brute_bu12": {
+    "n_test": 20,
+    "success": 3,
+    "success_rate": 0.15,
+    "per_instance": [
+      {
+        "i": 0,
+        "N": 9320193559820786809,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 124.37966084480286,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 1,
+        "N": 10384919949125009209,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 130.23947310447693,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 2,
+        "N": 7517317842157054453,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 123.66674304008484,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 3,
+        "N": 8776888918324772101,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 129.86876130104065,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 4,
+        "N": 5651185638541150427,
+        "success": true,
+        "first_success_R": 6,
+        "evals": 33772,
+        "time": 63.307518005371094,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 5,
+        "N": 9692906683740837019,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 128.89550399780273,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 6,
+        "N": 9295292175641369687,
+        "success": true,
+        "first_success_R": 10,
+        "evals": 61047,
+        "time": 117.78534579277039,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 7,
+        "N": 8567347475343603283,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 129.68411493301392,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 8,
+        "N": 9827166775173273521,
+        "success": true,
+        "first_success_R": 7,
+        "evals": 44784,
+        "time": 90.07288599014282,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 9,
+        "N": 14409651790020433651,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 130.05080699920654,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 10,
+        "N": 14836011817390870297,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 130.77562713623047,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 11,
+        "N": 10693851939537773159,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 132.27172422409058,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 12,
+        "N": 16889924800472276009,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 128.83477401733398,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 13,
+        "N": 8267667138634816217,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 130.57973623275757,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 14,
+        "N": 7607433146422864067,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 127.60055875778198,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 15,
+        "N": 13964612532433411579,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 131.95485281944275,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 16,
+        "N": 9257684127549423623,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 127.1094799041748,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 17,
+        "N": 12767421102699372293,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 114.60127377510071,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 18,
+        "N": 8593185291831999379,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 113.8920669555664,
+        "method": "brute_bu12"
+      },
+      {
+        "i": 19,
+        "N": 11210003907401944247,
+        "success": false,
+        "first_success_R": null,
+        "evals": 64800,
+        "time": 116.94512629508972,
+        "method": "brute_bu12"
+      }
+    ],
+    "time_s": 743.5610752105713
+  },
+  "phase3_union": {
+    "n_test": 20,
+    "copper_success": 11,
+    "brute_success": 3,
+    "union_success": 12,
+    "union_rate": 0.6,
+    "overlap": [
+      6,
+      8
+    ],
+    "copper_only": [
+      0,
+      1,
+      5,
+      7,
+      9,
+      12,
+      16,
+      18,
+      19
+    ],
+    "brute_only": [
+      4
+    ],
+    "residual": [
+      2,
+      3,
+      10,
+      11,
+      13,
+      14,
+      15,
+      17
+    ]
+  }
+}

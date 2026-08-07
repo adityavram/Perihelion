@@ -1,10 +1,11 @@
-"""Full factoring pipeline: features -> AR posterior -> multi-sample -> Coppersmith.
+"""Full factoring pipeline: features -> posterior -> coevolution -> Coppersmith.
 
 The SpectralFactoring class ties together:
   1. FeatureExtractor: 89-dimensional feature vector (D147)
-  2. ARPosterior: autoregressive posterior over p's bits (D143)
+  2. ARPosterior or EnsemblePosterior: posterior over p's bits (D143/D203)
   3. CoppersmithExtractor: corrected lattice with x-shifts (D159)
   4. Multi-sample Hamming-ball search (D157)
+  5. CoevolutionaryGA: high-bit refinement (D195)
 
 Usage:
     sf = SpectralFactoring(bits=32)
@@ -25,6 +26,7 @@ from .extraction import (
     high_ball_size,
 )
 from .coevolution import CoevolutionaryGA
+from .ensemble import EnsemblePosterior
 
 
 def generate_semiprime(bits, seed):
@@ -67,6 +69,8 @@ class SpectralFactoring:
         b_unknown: number of unknown low bits to pass to the extractor.
             Default: bits//4 - 1 (just within the Coppersmith bound with slack).
         extractor: "lattice" (Coppersmith), "brute" (GCD), or "coevolve".
+        posterior: "single" (one AR posterior, D143) or "ensemble" (20 diverse
+            AR posteriors, D203). Ensemble gives +15pp at 64-bit (55% → 70%).
         m, t: Coppersmith lattice parameters (only for "lattice" extractor).
         coevolve_generations: number of coevolution generations (only for
             "coevolve" extractor). D195: 99% at 48-bit vs 71% for brute.
@@ -75,7 +79,7 @@ class SpectralFactoring:
     """
 
     def __init__(self, bits, k_samples=20, d_hamming=2, b_unknown=None,
-                 extractor="lattice", m=8, t=7,
+                 extractor="lattice", posterior="single", m=8, t=7,
                  coevolve_generations=50, coevolve_pop_size=100,
                  coevolve_extract_method="brute",
                  coevolve_coppersmith_m=5, coevolve_coppersmith_t=4,
@@ -90,6 +94,7 @@ class SpectralFactoring:
         self.b_unknown = b_unknown
         self.n_known = self.half - b_unknown
         self.extractor_name = extractor
+        self.posterior_name = posterior
         self.seed = seed
         self.rng = np.random.default_rng(seed)
         self.coevolve_generations = coevolve_generations
@@ -101,10 +106,16 @@ class SpectralFactoring:
         self.try_q = try_q
 
         self.fe = FeatureExtractor(bits)
-        self.posterior = ARPosterior(
-            n_features=TOTAL_FEATURES,
-            n_bits=self.half,
-        )
+        if posterior == "ensemble":
+            self.posterior = EnsemblePosterior(
+                n_features=TOTAL_FEATURES,
+                n_bits=self.half,
+            )
+        else:
+            self.posterior = ARPosterior(
+                n_features=TOTAL_FEATURES,
+                n_bits=self.half,
+            )
         if extractor == "lattice":
             self.extractor = CoppersmithExtractor(
                 m=m, t=t, use_extended=use_extended)
@@ -118,7 +129,7 @@ class SpectralFactoring:
 
     def train(self, dataset=None, n_train=2000, seed_offset=0,
               multi_size_datasets=None):
-        """Train the feature extractor and AR posterior.
+        """Train the feature extractor and posterior.
 
         Args:
             dataset: optional list of (N, p, q) tuples at the target bit size.
@@ -209,13 +220,15 @@ class SpectralFactoring:
         return None
 
     def _factor_coevolve(self, N, samples):
-        """Factor using coevolutionary GA (D195 + D201).
+        """Factor using coevolutionary GA (D195 + D201 + D203).
 
         Initializes both populations from posterior samples, then
         coevolves the high bits of p and q via the constraint p*q ≈ N.
         Achieves 99% at 48-bit vs 71% for brute (D195).
         With coppersmith extract + D174 extended roots, 65% at 64-bit (D201).
+        With D203 ensemble posterior, 70% at 64-bit.
 
+        Set posterior="ensemble" for 64-bit+ for the +15pp ensemble gain.
         Set coevolve_extract_method="coppersmith" for 64-bit+ where
         brute-force at b_unknown=16 is infeasible.
         """
